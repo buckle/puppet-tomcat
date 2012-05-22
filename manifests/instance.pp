@@ -266,7 +266,6 @@ define tomcat::instance(
   $tomcat_version_str = "${version}_${tomcat::type}"
 
   # Define default JAVA_HOME used in tomcat.init.erb
-<<<<<<< HEAD
   if $java_home == '' {
     case $::operatingsystem {
       RedHat: {
@@ -277,12 +276,6 @@ define tomcat::instance(
       }
       SLC: {
         $javahome = '/usr/lib/jvm/jre'
-=======
-  if $java_home == "" {
-    case $operatingsystem {
-      'RedHat','CentOS': {
-        $javahome = "/usr/lib/jvm/java"
->>>>>>> Adding CentOS support
       }
       Debian,Ubuntu: {
         $javahome = '/usr'
