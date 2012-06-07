@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # == Class: tomcat::source
 #
 # Installs tomcat using the compressed archive from your favorite tomcat
@@ -22,6 +23,44 @@
 class tomcat::source {
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")
+=======
+/*
+
+== Class: tomcat::source
+
+Installs tomcat 5.5.X, 6.0.X or 7.0.X using the compressed archive from your favorite tomcat
+mirror. Files from the archive will be installed in /opt/apache-tomcat/.
+
+Class variables:
+- *$log4j_conffile*: see tomcat
+
+Requires:
+- java to be previously installed
+- common::archive definition (from puppet camptocamp/common module)
+- Package["curl"]
+
+Tested on:
+- RHEL 5,6
+- Debian Lenny/Squeeze
+- Ubuntu Lucid
+
+Usage:
+  $tomcat_version = "6.0.18"
+  include tomcat::source
+
+*/
+class tomcat::source inherits tomcat::base {
+
+  include tomcat::params
+
+  case $::operatingsystem {
+    RedHat,CentOS: {
+      package { ["log4j", "jakarta-commons-logging"]: ensure => present }
+    }
+    Debian,Ubuntu: {
+      package { ["liblog4j1.2-java", "libcommons-logging-java"]: ensure => present }
+    }
+>>>>>>> sytax update
   }
 
   $version     = $tomcat::src_version
