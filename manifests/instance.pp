@@ -149,6 +149,30 @@ define tomcat::instance(
   }
   validate_re($version, '^[5-7]([\.0-9]+)?$')
 
+<<<<<<< HEAD
+=======
+*/
+define tomcat::instance($ensure="present",
+                        $owner="tomcat",
+                        $group="adm",
+                        $server_port="8005",
+                        $http_port="8080",
+                        $http_address=false,
+                        $ajp_port="8009",
+                        $ajp_address=false,
+                        $conf_mode="",
+                        $server_xml_file="",
+                        $webapp_mode="",
+                        $java_home="",
+                        $sample=undef,
+                        $setenv=[],
+                        $connector=[],
+                        $executor=[],
+                        $manage=false) {
+
+  include tomcat::params
+
+>>>>>>> notify tomcat service when modifying java_opts
   $tomcat_name = $name
   $basedir = "${_basedir}/${name}"
 
@@ -183,6 +207,7 @@ define tomcat::instance(
     }
   }
 
+<<<<<<< HEAD
   validate_re($dirmode, '^[0-9]+$')
   validate_re($filemode, '^[0-9]+$')
   validate_re($confmode, '^[0-9]+$')
@@ -198,6 +223,12 @@ define tomcat::instance(
       default => present,
     }
 
+=======
+  if $connector == [] and $server_xml_file == "" {
+
+    $connectors = ["http-${http_port}-${name}","ajp-${ajp_port}-${name}"]
+
+>>>>>>> notify tomcat service when modifying java_opts
     tomcat::connector{"http-${http_port}-${name}":
       ensure   => $connector_ensure,
       instance => $name,
@@ -232,12 +263,23 @@ define tomcat::instance(
     }
   }
 
+<<<<<<< HEAD
   if $tomcat::type == 'package' and
       $::osfamily == 'RedHat' and
       $::operatingsystemrelease =~ /^6.*/ {
     # force catalina.sh to use the common library
     # in CATALINA_HOME and not CATALINA_BASE
     $classpath = "/usr/share/tomcat${version}/bin/tomcat-juli.jar"
+=======
+  if $tomcat::params::type == "package" and ($operatingsystem == "RedHat" or $operatingsystem == "CentOS") and versioncmp($operatingsystemrelease, "6.0") >= 0 {
+    # force catalina.sh to use the common library in CATALINA_HOME and not CATALINA_BASE
+    $classpath = "/usr/share/tomcat6/bin/tomcat-juli.jar"
+  }
+
+  # default server.xml is slightly different between tomcat5.5 and tomcat6
+  if $tomcat::params::maj_version == "5.5" {
+    $serverdotxml = "server.xml.tomcat55.erb"
+>>>>>>> notify tomcat service when modifying java_opts
   }
 
   # default server.xml is slightly different between tomcat5.5 and tomcat6 or 7
@@ -372,11 +414,16 @@ define tomcat::instance(
             true    => Service["tomcat-${name}"],
             default => undef,
           },
+<<<<<<< HEAD
           require  => $server_xml_file? {
             ''      => $version ? {
               5       => undef,
               default => Concat_build["server.xml_${name}"],
             },
+=======
+          require => $server_xml_file? {
+            ""      => undef,
+>>>>>>> notify tomcat service when modifying java_opts
             default => Tomcat::Connector[$connectors],
           },
           replace => $manage;
