@@ -18,7 +18,7 @@ class tomcat::params {
   if defined(Class['Tomcat::source']) {
     $type = 'source'
     if ( ! $::tomcat_version ) {
-      $maj_version = '6'
+      $maj_version = '7'
       $version = $default_source_release
     } else {
       $version = $::tomcat_version

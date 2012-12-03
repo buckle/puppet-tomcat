@@ -104,7 +104,8 @@ define tomcat::instance(
   $setenv=[],
   $connector=[],
   $executor=[],
-  $manage=false) {
+  $manage=false
+) {
 
   include tomcat::params
 
