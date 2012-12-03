@@ -12,7 +12,7 @@ This class is just there to avoid code duplication. It probably doesn't make
 any sense to include it directly.
 
 */
-class tomcat::juli {
+class tomcat::juli ($tomcat_home) {
 
   include tomcat::params
 
@@ -21,29 +21,29 @@ class tomcat::juli {
   }
 
   $baseurl = $tomcat::params::maj_version ? {
-    "5.5"   => "${tomcat::params::mirror}/tomcat-5/v${tomcat::params::version}/bin",
-    "6"     => "${tomcat::params::mirror}/tomcat-6/v${tomcat::params::version}/bin",
-    "7"     => "${tomcat::params::mirror}/tomcat-7/v${tomcat::params::version}/bin",
+    '5.5'   => "${tomcat::params::mirror}/tomcat-5/v${tomcat::params::version}/bin",
+    '6'     => "${tomcat::params::mirror}/tomcat-6/v${tomcat::params::version}/bin",
+    '7'     => "${tomcat::params::mirror}/tomcat-7/v${tomcat::params::version}/bin",
     default => "${tomcat::params::mirror}/tomcat-7/v${tomcat::params::version}/bin",
-  }  
+  }
 
   file { "${tomcat_home}/extras/":
     ensure  => directory,
-    require => File["${tomcat_home}"],
+    require => File[$tomcat_home],
   }
 
-  archive::download { "tomcat-juli.jar":
+  archive::download { 'tomcat-juli.jar':
     url         => "${baseurl}/extras/tomcat-juli.jar",
     digest_url  => "${baseurl}/extras/tomcat-juli.jar.md5",
-    digest_type => "md5",
+    digest_type => 'md5',
     src_target  => "${tomcat_home}/extras/",
     require     => File["${tomcat_home}/extras/"],
   }
 
-  archive::download { "tomcat-juli-adapters.jar":
+  archive::download { 'tomcat-juli-adapters.jar':
     url         => "${baseurl}/extras/tomcat-juli-adapters.jar",
     digest_url  => "${baseurl}/extras/tomcat-juli-adapters.jar.md5",
-    digest_type => "md5",
+    digest_type => 'md5',
     src_target  => "${tomcat_home}/extras/",
     require     => File["${tomcat_home}/extras/"],
   }
@@ -51,13 +51,13 @@ class tomcat::juli {
   file { "${tomcat_home}/bin/tomcat-juli.jar":
     ensure  => link,
     target  => "${tomcat_home}/extras/tomcat-juli.jar",
-    require => Archive::Download["tomcat-juli.jar"],
+    require => Archive::Download['tomcat-juli.jar'],
   }
 
   file { "${tomcat_home}/lib/tomcat-juli-adapters.jar":
     ensure  => link,
     target  => "${tomcat_home}/extras/tomcat-juli-adapters.jar",
-    require => Archive::Download["tomcat-juli-adapters.jar"],
+    require => Archive::Download['tomcat-juli-adapters.jar'],
   }
 
 }
