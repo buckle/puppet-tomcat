@@ -23,7 +23,7 @@ class tomcat::params {
     } else {
       $version = $::tomcat_version
       if versioncmp($::tomcat_version, '7.0.0') >= 0 {
-        $maj_version = '7'
+        $maj_version = '6'
       } else {
         if versioncmp($::tomcat_version, '6.0.0') >= 0 {
           $maj_version = '6'
