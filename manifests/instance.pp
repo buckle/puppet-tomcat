@@ -56,6 +56,7 @@ Parameters:
 - *setenv*: optional array of environment variable definitions, which will be
   added to setenv.sh. It will still be possible to override these variables by
   editing setenv-local.sh.
+- *jmx_opts*: optional string for jmx options to be added to JAVA_OPTS
 - *connector*: an array of tomcat::connector name (string) to include in server.xml
 - *executor*: an array of tomcat::executor name (string) to include in server.xml
 
@@ -102,6 +103,7 @@ define tomcat::instance(
   $java_home='',
   $sample=undef,
   $setenv=[],
+  $jmx_opts='',
   $connector=[],
   $executor=[],
   $manage=false
