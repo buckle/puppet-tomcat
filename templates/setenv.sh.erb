@@ -23,7 +23,9 @@ export JAVA_XX_MAXPERMSIZE="256m"
 export <%= env -%>
 <% end %>
 
+<% if !jmx_opts.empty? -%>
 export <%=jmx_opts -%>
+<% end -%>
 
 . $CATALINA_BASE/bin/setenv-local.sh
 
