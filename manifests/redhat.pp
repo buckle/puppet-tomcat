@@ -81,6 +81,7 @@ class tomcat::redhat inherits tomcat::package {
     path  => "/usr/share/${tomcat}",
     owner => 'tomcat',
     group => 'tomcat',
+    mode  => '0700',
   }
 
   Service['tomcat'] {
