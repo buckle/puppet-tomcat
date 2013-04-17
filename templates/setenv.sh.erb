@@ -27,6 +27,10 @@ export <%= env -%>
 export <%=jmx_opts -%>
 <% end -%>
 
+<% if !debug_opts.empty? -%>
+export <%=debug_opts -%>
+<% end -%>
+
 . $CATALINA_BASE/bin/setenv-local.sh
 
 export JAVA_OPTS="-Dsun.java2d.opengl=${DSUN_JAVA2D_OPENGL} \
@@ -34,4 +38,5 @@ export JAVA_OPTS="-Dsun.java2d.opengl=${DSUN_JAVA2D_OPENGL} \
                   -Xmx${JAVA_XMX} \
                   -XX:MaxPermSize=${JAVA_XX_MAXPERMSIZE} \
                   ${JMX_OPTS} \
+                  ${DEBUG_OPTS} \
                   ${ADD_JAVA_OPTS}"

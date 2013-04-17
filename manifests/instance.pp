@@ -103,6 +103,7 @@ define tomcat::instance(
   $java_home='',
   $sample=undef,
   $setenv=[],
+  $debug_opts='',
   $jmx_opts='',
   $connector=[],
   $executor=[],
