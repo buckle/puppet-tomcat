@@ -111,8 +111,6 @@ define tomcat::instance(
   $manage=false
 ) {
 
-  notify { "Contexts are ${contexts}": }
-
   include tomcat::params
 
   $tomcat_name = $name
