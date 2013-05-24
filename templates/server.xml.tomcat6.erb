@@ -11,6 +11,11 @@
 <% end -%>
 ]>
 <% end -%>
+<% if not contexts.empty? -%>
+<% contexts.each do |con| -%>
+  <!ENTITY context-<%= con %> SYSTEM "context-<%= con %>.xml">
+<% end -%>
+<% end -%>
 <% if manage -%>
 <!-- file managed by puppet -->
 <% else -%>
