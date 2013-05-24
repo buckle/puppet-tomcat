@@ -107,6 +107,7 @@ define tomcat::instance(
   $jmx_opts='',
   $connector=[],
   $executor=[],
+  $contexts=[],
   $manage=false
 ) {
 
