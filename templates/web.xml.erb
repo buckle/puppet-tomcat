@@ -1184,7 +1184,7 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     
-<% if @security == true -%>
+<% if @security -%>
   <security-constraint>
     <web-resource-collection>
       <web-resource-name><%= @security_realm_name %></web-resource-name>

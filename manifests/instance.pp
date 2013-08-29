@@ -342,7 +342,7 @@ define tomcat::instance(
           },
           replace => $manage;
 
-        "${basedir}/tomcat-users.xml":
+        "${basedir}/conf/tomcat-users.xml":
           ensure  => present,
           owner   => $owner,
           group   => $group,
