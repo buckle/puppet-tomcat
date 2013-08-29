@@ -18,7 +18,7 @@
 -->
 <tomcat-users>
 <% @tomcat_users.each do |user| -%>
-<user name="<%= user[:name] %>" password="<%= @user[:password] %>" roles="<%= @user[:roles] %>" />
+<user name="<%= user[:name] %>" password="<%= user[:password] %>" roles="<%= user[:roles] %>" />
 <% end -%>
 <!--
   <role rolename="tomcat"/>
