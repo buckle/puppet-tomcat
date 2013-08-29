@@ -112,6 +112,7 @@ define tomcat::instance(
   $security=false,
   $security_realm_name=undef,
   $security_url_pattern='/*',
+  $tomcat_users=[],
 ) {
 
   include tomcat::params
@@ -329,6 +330,19 @@ define tomcat::instance(
           replace => $manage;
 
         "${basedir}/conf/web.xml":
+          ensure  => present,
+          owner   => $owner,
+          group   => $group,
+          mode    => $filemode,
+          content => template('tomcat/web.xml.erb'),
+          before  => Service["tomcat-${name}"],
+          notify  => $manage? {
+            true    => Service["tomcat-${name}"],
+            default => undef,
+          },
+          replace => $manage;
+
+        "${basedir}/tomcat-users.xml":
           ensure  => present,
           owner   => $owner,
           group   => $group,
