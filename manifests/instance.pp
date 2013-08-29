@@ -347,7 +347,7 @@ define tomcat::instance(
           owner   => $owner,
           group   => $group,
           mode    => $filemode,
-          content => template('tomcat/web.xml.erb'),
+          content => template('tomcat/tomcat-users.xml.erb'),
           before  => Service["tomcat-${name}"],
           notify  => $manage? {
             true    => Service["tomcat-${name}"],
