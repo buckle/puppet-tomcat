@@ -108,7 +108,10 @@ define tomcat::instance(
   $connector=[],
   $executor=[],
   $contexts=[],
-  $manage=false
+  $manage=false,
+  $security=false,
+  $security_realm_name=undef,
+  $security_url_pattern='/*',
 ) {
 
   include tomcat::params

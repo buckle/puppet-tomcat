@@ -1183,5 +1183,36 @@
         <welcome-file>index.htm</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    
+<% if @security == true -%>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name><%= @security_realm_name %></web-resource-name>
+      <url-pattern><%= @security_url_pattern %></url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+       <!-- NOTE:  This role is not present in the default users file -->
+       <role-name>manager</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+       <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+
+  </security-constraint>
+
+  <!-- Define the Login Configuration for this Application -->
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name><%= @security_realm_name %></realm-name>
+  </login-config>
+
+  <!-- Security roles referenced by this web application -->
+  <security-role>
+    <description>
+      The role that is required to log in to the WebApps
+    </description>
+    <role-name>manager</role-name>
+  </security-role
+<% end -%>
 
 </web-app>
