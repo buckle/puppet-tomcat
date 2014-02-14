@@ -108,6 +108,7 @@ define tomcat::instance(
   $connector=[],
   $executor=[],
   $contexts=[],
+  $cluster='',
   $manage=false,
   $security=false,
   $security_realm_name=undef,

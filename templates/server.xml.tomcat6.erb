@@ -99,6 +99,11 @@
     --> 
     <Engine name="Catalina" defaultHost="localhost">
 
+      <% if not @cluster.empty? -%>
+          <!-- See conf/cluster--<%= @cluster %>.xml for this cluster's config. -->
+          &cluster-<%= @cluster %>;
+      <% end -%>
+
       <!--For clustering, please take a look at documentation at:
           /docs/cluster-howto.html  (simple how to)
           /docs/config/cluster.html (reference documentation) -->
