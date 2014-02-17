@@ -14,6 +14,9 @@
   <!ENTITY context-<%= con %> SYSTEM "context-<%= con %>.xml">
 <% end -%>
 <% end -%>
+<% if not @cluster.empty? -%>
+  <!ENTITY cluster-<%= @cluster %> SYSTEM "cluster-<%= @cluster %>.xml">
+<% end -%>
 ]>
 <% end -%>
 <% if manage -%>
