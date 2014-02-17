@@ -100,7 +100,7 @@
     <Engine name="Catalina" defaultHost="localhost">
 
 <% if not @cluster.empty? -%>
-      <!-- See conf/cluster--<%= @cluster %>.xml for this cluster's config. -->
+      <!-- See conf/cluster-<%= @cluster %>.xml for this cluster's config. -->
       &cluster-<%= @cluster %>;
 <% end -%>
 
