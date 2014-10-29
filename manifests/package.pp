@@ -12,7 +12,7 @@ class tomcat::package inherits tomcat::base {
     ensure => present,
   }
 
-  service { 'tomcat':
+  package { 'tomcat-native':
     ensure => present,
   }
 
