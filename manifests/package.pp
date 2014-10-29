@@ -12,6 +12,10 @@ class tomcat::package inherits tomcat::base {
     ensure => present,
   }
 
+  service { 'tomcat':
+    ensure => present,
+  }
+
   service { "tomcat":
     ensure    => stopped,
     enable    => false,
