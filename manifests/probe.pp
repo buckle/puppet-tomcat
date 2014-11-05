@@ -45,15 +45,15 @@ define tomcat::probe($ensure='present', $version='2.0.4') {
     '2.0.4' => '2207bbc4a45af7e3cff2dfbd9377848f1b807387',
   }
 
-  common::archive { "psi-probe-${version}":
+  archive { "psi-probe-${version}":
     url           => $url,
     digest_string => $sha1sum,
-    digest_type   => "sha1",
-    extension     => "zip",
+    digest_type   => 'sha1',
+    extension     => 'zip',
     target        => "/usr/src/psi-probe-${version}",
     # hack to avoid the exec reexecuting always, as the zip file contains no
     # base directory.
-    root_dir      => "probe.war",
+    root_dir      => 'probe.war',
   }
 
   file { "/srv/tomcat/${name}/webapps/probe.war":

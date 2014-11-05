@@ -9,6 +9,14 @@
 <% connectors.each do |conn| -%>
   <!ENTITY connector-<%= conn %> SYSTEM "connector-<%= conn %>.xml">
 <% end -%>
+<% if not contexts.empty? -%>
+<% contexts.each do |con| -%>
+  <!ENTITY context-<%= con %> SYSTEM "context-<%= con %>.xml">
+<% end -%>
+<% end -%>
+<% if not @cluster.empty? -%>
+  <!ENTITY cluster-<%= @cluster %> SYSTEM "cluster-<%= @cluster %>.xml">
+<% end -%>
 ]>
 <% end -%>
 <% if manage -%>
@@ -94,6 +102,11 @@
     --> 
     <Engine name="Catalina" defaultHost="localhost">
 
+<% if not @cluster.empty? -%>
+      <!-- See conf/cluster-<%= @cluster %>.xml for this cluster's config. -->
+      &cluster-<%= @cluster %>;
+<% end -%>
+
       <!--For clustering, please take a look at documentation at:
           /docs/cluster-howto.html  (simple how to)
           /docs/config/cluster.html (reference documentation) -->
@@ -121,6 +134,14 @@
       <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true"
             xmlValidation="false" xmlNamespaceAware="false">
+            
+<% if not contexts.empty? -%>
+<% contexts.each do |con| -%>
+    <!-- See conf/context-<%= con %>.xml for this context's config. -->
+    &context-<%= con %>;
+
+<% end -%>
+<% end -%>
 
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->
