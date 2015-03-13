@@ -12,7 +12,11 @@ class tomcat::package inherits tomcat::base {
     ensure => present,
   }
 
+<<<<<<< Updated upstream
   service { "tomcat":
+=======
+  service { 'tomcat':
+>>>>>>> Stashed changes
     ensure    => stopped,
     enable    => false,
     hasstatus => false,
