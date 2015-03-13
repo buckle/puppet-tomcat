@@ -18,16 +18,16 @@ Example usage:
 */
 define tomcat::ulimit ($value) {
 
-  augeas { "set tomcat $name ulimit":
-    context => "/files/etc/security/limits.conf/",
+  augeas { "set tomcat ${name} ulimit":
+    context => '/files/etc/security/limits.conf/',
     changes => [
-      "set \"domain[last()]\" tomcat",
-      "set \"domain[.='tomcat']/type\" -",
+      'set \"domain[last()]\" tomcat',
+      'set \"domain[.=\'tomcat\']/type\" -',
       "set \"domain[.='tomcat']/item\" ${name}",
       "set \"domain[.='tomcat']/value\" ${value}",
       ],
     onlyif  => "match domain[.='tomcat'][type='-'][item='${name}'][value='${value}'] size == 0",
-    before  => User["tomcat"],
+    before  => User['tomcat'],
   }
 
 }

@@ -30,44 +30,48 @@ class tomcat::source inherits tomcat::base {
 
   case $::operatingsystem {
     RedHat,CentOS: {
-      package { ["log4j", "jakarta-commons-logging"]: ensure => present }
+      package { ['log4j', 'jakarta-commons-logging']: ensure => present }
     }
     Debian,Ubuntu: {
-      package { ["liblog4j1.2-java", "libcommons-logging-java"]: ensure => present }
+      package { ['liblog4j1.2-java', 'libcommons-logging-java']: ensure => present }
     }
   }
 
   $tomcat_home = "/opt/apache-tomcat-${tomcat::params::version}"
 
-  if $tomcat::params::maj_version == "6" or $tomcat::params::maj_version == "7" {
+  if $tomcat::params::maj_version == '6' or $tomcat::params::maj_version == '7' {
     # install extra tomcat juli adapters, used to configure logging.
-    include tomcat::juli
+    class { 'tomcat::juli':
+      tomcat_home   => $tomcat_home
+    }
   }
 
   #  link logging libraries from java
-  include tomcat::logging
+  class { 'tomcat::logging':
+    tomcat_home   => $tomcat_home
+  }
 
   $baseurl = $tomcat::params::maj_version ? {
-    "5.5"   => "${tomcat::params::mirror}/tomcat-5/v${tomcat::params::version}/bin",
-    "6"     => "${tomcat::params::mirror}/tomcat-6/v${tomcat::params::version}/bin",
-    "7"     => "${tomcat::params::mirror}/tomcat-7/v${tomcat::params::version}/bin",
+    '5.5'   => "${tomcat::params::mirror}/tomcat-5/v${tomcat::params::version}/bin",
+    '6'     => "${tomcat::params::mirror}/tomcat-6/v${tomcat::params::version}/bin",
+    '7'     => "${tomcat::params::mirror}/tomcat-7/v${tomcat::params::version}/bin",
     default => "${tomcat::params::mirror}/tomcat-7/v${tomcat::params::version}/bin",
   }
-  
+
   $tomcaturl = "${baseurl}/apache-tomcat-${tomcat::params::version}.tar.gz"
 
   archive{ "apache-tomcat-${tomcat::params::version}":
     url         => $tomcaturl,
     digest_url  => "${tomcaturl}.md5",
-    digest_type => "md5",
-    target      => "/opt",
+    digest_type => 'md5',
+    target      => '/opt',
   }
 
-  file {"/opt/apache-tomcat":
+  file {'/opt/apache-tomcat':
     ensure  => link,
     target  => $tomcat_home,
     require => [[Class['tomcat::redhat_lsb']],[Archive["apache-tomcat-${tomcat::params::version}"]]],
-    before  => [File["commons-logging.jar"], File["log4j.jar"], File["log4j.properties"]],
+    before  => [File['commons-logging.jar'], File['log4j.jar'], File['log4j.properties']],
   }
 
   file { $tomcat_home:
@@ -77,13 +81,13 @@ class tomcat::source inherits tomcat::base {
 
     # Workarounds
   case $tomcat::params::version {
-    "6.0.18": {
+    '6.0.18': {
       # Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=45585
       file {"${tomcat_home}/bin/catalina.sh":
         ensure  => present,
-        source  => "puppet:///modules/tomcat/catalina.sh-6.0.18",
+        source  => 'puppet:///modules/tomcat/catalina.sh-6.0.18',
         require => Archive["apache-tomcat-${tomcat::params::version}"],
-        mode => "755",
+        mode    => '0755',
       }
     }
   }

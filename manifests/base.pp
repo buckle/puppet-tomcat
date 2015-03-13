@@ -12,22 +12,14 @@ Class variables:
 */
 class tomcat::base {
 
-  user{"tomcat":
+  user{'tomcat':
     ensure => present,
-    uid    => $tomcat_uid? {
-      ''      => undef,
-      default => $tomcat_uid,
-    },
-    groups => $tomcat_groups? {
-      ''      => undef,
-      default => $tomcat_groups,
-    }
   }
 
-  file { "/var/log/tomcat":
+  file { '/var/log/tomcat':
     ensure => directory,
-    owner  => "tomcat",
-    group  => "tomcat",
+    owner  => 'tomcat',
+    group  => 'tomcat',
   }
 
 }

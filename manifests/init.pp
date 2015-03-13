@@ -10,9 +10,9 @@ Example usage:
 
 */
 class tomcat {
-  case $operatingsystem {
+  case $::operatingsystem {
     RedHat,CentOS: { include tomcat::redhat }
     Debian,Ubuntu: { include tomcat::debian }
-    default      : { notice "Unsupported operatingsystem ${operatingsystem}" }
+    default      : { notice "Unsupported operatingsystem ${::operatingsystem}" }
   }
 }
