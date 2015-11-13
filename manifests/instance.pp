@@ -93,6 +93,7 @@ define tomcat::instance(
   $owner='tomcat',
   $group='adm',
   $server_port='8005',
+  $access_log=false,
   $http_port='8080',
   $http_address=false,
   $ajp_port='8009',
