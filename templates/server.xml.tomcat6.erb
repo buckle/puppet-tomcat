@@ -151,13 +151,13 @@
 
         <!-- Access log processes all example.
              Documentation at: /docs/config/valve.html -->
-<% if not @access_log? -%>
         <!--
-<% end -%>
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"  
                prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/>
-<% if not @access_log? -%>
         -->
+<% if @access_log? -%>
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"  
+               prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/>
 <% end -%>
 
       </Host>
